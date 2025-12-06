@@ -53,7 +53,8 @@ fun AppContent(masterPasswordRepository: MasterPasswordRepository, sessionViewMo
             SetupMasterPasswordScreen(masterPasswordRepository, onSetupComplete = { navController.navigate("unlock") })
         }
         composable("unlock"){
-            UnlockScreen(masterPasswordRepository, onUnlockSuccess = {
+            UnlockScreen(masterPasswordRepository, onUnlockSuccess = { derivedKey ->
+                sessionViewModel.vaultKey = derivedKey
                 sessionViewModel.markUnlocked()
                 navController.navigate("home"){
                     popUpTo(navController.graph.startDestinationId){
@@ -66,6 +67,7 @@ fun AppContent(masterPasswordRepository: MasterPasswordRepository, sessionViewMo
             HomeScreen(
                 onIdleTimeout = {
                     sessionViewModel.markLocked()
+                    sessionViewModel.vaultKey = null
                     navController.navigate("unlock"){
                         popUpTo(navController.graph.startDestinationId){
                             inclusive = true

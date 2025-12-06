@@ -20,6 +20,7 @@ class MainActivity : ComponentActivity() {
         ProcessLifecycleOwner.get().lifecycle.addObserver(LifecycleEventObserver{_, event ->
             if(event == Lifecycle.Event.ON_STOP){
                 sessionViewModel.markLocked()
+                sessionViewModel.vaultKey = null
             }
         })
         setContent {
