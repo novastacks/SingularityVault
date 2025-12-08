@@ -34,20 +34,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.example.passwordstorageapp.data.VaultEntry
-import com.example.passwordstorageapp.feature.auth.SessionViewModel
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     onIdleTimeout : () -> Unit,
-    onEntryClick : (EntryViewModel) -> Unit,
+    onEntryClick : (VaultEntry) -> Unit,
     vaultViewModel: VaultViewModel
 ) {
     var lastInteractionTime by remember { mutableStateOf(System.currentTimeMillis()) }
-    val entryViewModel = EntryViewModel()
 
     fun touch() {
         lastInteractionTime = System.currentTimeMillis()
@@ -109,13 +106,7 @@ fun HomeScreen(
                             entry = entry,
                             onClick = {
                                 touch()
-                                entryViewModel.currentEntry(
-                                    entry.serviceName,
-                                    entry.username,
-                                    entry.password,
-                                    entry.notes
-                                )
-                                onEntryClick(entryViewModel)
+                                onEntryClick(entry)
                             }
                         )
                     }

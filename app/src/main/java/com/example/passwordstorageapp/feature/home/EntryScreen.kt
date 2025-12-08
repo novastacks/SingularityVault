@@ -11,21 +11,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.passwordstorageapp.data.VaultEntry
 
 @Composable
-fun EntryScreen(entryViewModel: EntryViewModel){
+fun EntryScreen(vaultEntry: VaultEntry){
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxSize().padding(16.dp)
     ){
-        Text(entryViewModel.serviceName)
+        Text(vaultEntry.serviceName)
         Spacer(modifier = Modifier.height(8.dp))
-        Text(entryViewModel.username)
+        Text(vaultEntry.username)
         Spacer(modifier = Modifier.height(8.dp))
-        Text(entryViewModel.password)
+        Text(vaultEntry.password)
         Spacer(modifier = Modifier.height(8.dp))
-        entryViewModel.notes?.let{
+        vaultEntry.notes?.let{
             Text(it)
         }
         Spacer(modifier = Modifier.height(8.dp))
